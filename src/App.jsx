@@ -19,7 +19,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        
         <Route path="/iniciarSesion" element={<IniciarSesion />} />
         <Route path="/registrarse" element={<Registrarse />} />
         <Route path="/carrito" element={<Carrito />} />
@@ -33,6 +32,3 @@ function App() {
 
 export default App;
 
-/*
-
-*/

@@ -9,7 +9,9 @@ function IniciarSesion() {
 
   return (
     <Container as="main" className="auth-page my-5">
-      <h2>Inicio de sesión</h2>
+      <Text variant="h2" className="fw-bold">
+        Inicio de sesión
+      </Text>
 
       <Form onSubmit={handleSubmit} className="auth-form">
         <Form.Group controlId="login-username">
@@ -27,9 +29,9 @@ function IniciarSesion() {
         </Button>
       </Form>
 
-      <p className="auth-switch">
+      <Text className="auth-switch">
         ¿No tienes cuenta? <Link to="/registrarse">Regístrate</Link>
-      </p>
+      </Text>
     </Container>
   );
 }

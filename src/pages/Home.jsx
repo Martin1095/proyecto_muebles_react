@@ -1,18 +1,18 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import productsDestacados from '../data/ProductsDestacados';
-import ProductCard from '../components/organisms/ProductCard';
+import ProductDestacadoCard from '../components/organisms/ProductDestacadoCard';
 import Text from '../components/atoms/Text';
 
 function Home() {
-  // Tomamos los primeros 3 productos para mostrarlos como "Ofertas destacadas"
+
   const productosDestacados = productsDestacados.slice(0, 3);
 
   return (
     <>
       <Container className="my-5">
-        <h2>Bienvenido a nuestra tienda de muebles</h2>
-        <p>Encuentra los mejores muebles para tu hogar con buenos precios.</p>
+        <Text variant="h2" className="fw-bold">Bienvenido a nuestra tienda de muebles</Text>
+        <Text variant="p"> Encuentra los mejores muebles para tu hogar con buenos precios.</Text>
       </Container>
 
       <Container className="my-5">
@@ -20,15 +20,15 @@ function Home() {
           <Text variant="h2" className="fw-bold m-0">
             Ofertas Destacadas
           </Text>
-          <Link to="/productos" className="btn btn-outline-dark btn-sm">
+          <Link to="/products" className="btn btn-outline-dark btn-sm">
             Ver todos los productos
           </Link>
         </div>
 
         <Row>
-          {productosDestacados.map((product) => (
-            <Col key={product.id} xs={12} md={6} lg={4} className="mb-4">
-              <ProductCard product={product} />
+          {productosDestacados.map((productDestacado) => (
+            <Col key={productDestacado.id} xs={12} md={6} lg={4} className="mb-4">
+              <ProductDestacadoCard productDestacado={productDestacado} />
             </Col>
           ))}
         </Row>
