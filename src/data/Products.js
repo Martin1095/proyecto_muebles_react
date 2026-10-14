@@ -26,8 +26,14 @@ const products = [
     description: 'Sillón para el living.',
     price: 12000,
     image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300'
+    },
+    {
+    id: 5,
+    name: 'Mueble de cocina',
+    description: 'hola',
+    price: 25000,
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_KWjV0WBl5iLAUc8xGj19I95gyLncnC2rOIOIWzu_YQ&s'
     }
 ];
-
 
 export default products;
