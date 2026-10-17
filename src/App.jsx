@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import IniciarSesion from "./pages/IniciarSesion";
 import Registrarse from "./pages/Registrarse";
 import Tutoriales from "./pages/Tutoriales";
+import Admin from "./pages/Admin";
 import './styles/global.css';
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tutoriales" element={<Tutoriales />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
   );
@@ -31,4 +33,3 @@ function App() {
 
 
 export default App;
-
