@@ -4,14 +4,24 @@ import pedidosIniciales from '../data/Orders';
 
 function Admin() {
   const [pedidos, setPedidos] = useState(() => {
-    const pedidosGuardados = JSON.parse(localStorage.getItem('pedidos'));
-    return pedidosGuardados || pedidosIniciales;
+    const pedidosGuardados = localStorage.getItem('pedidos');
+
+    if (pedidosGuardados) {
+      return JSON.parse(pedidosGuardados);
+    }
+
+    return pedidosIniciales;
   });
 
   const cancelarPedido = (id) => {
-    const pedidosActualizados = pedidos.map((pedido) =>
-      pedido.id === id ? { ...pedido, estado: 'Cancelado' } : pedido
-    );
+    const pedidosActualizados = pedidos.map((pedido) => {
+      if (pedido.id === id) {
+        return { ...pedido, estado: 'Cancelado' };
+      }
+
+      return pedido;
+    });
+
     setPedidos(pedidosActualizados);
     localStorage.setItem('pedidos', JSON.stringify(pedidosActualizados));
   };
@@ -21,9 +31,9 @@ function Admin() {
       <h1>Administrar pedidos</h1>
       <p>Pedidos de ejemplo guardados en este navegador.</p>
 
-      {pedidos.length === 0 ? (
-        <Alert variant="info">No hay pedidos registrados.</Alert>
-      ) : (
+      {pedidos.length === 0 && <Alert variant="info">No hay pedidos registrados.</Alert>}
+
+      {pedidos.length > 0 && (
         <Table bordered hover>
           <thead>
             <tr>
@@ -57,13 +67,11 @@ function Admin() {
                   </Button>
                 </td>
                 <td>
-                  {pedido.estado === 'Cancelado' ? (
+                  {pedido.estado === 'Cancelado' && (
                     <Alert variant="warning" className="mb-0">
                       Lamentablemente tuvimos que cancelar su pedido. Si tiene
                       alguna duda, escríbanos.
                     </Alert>
-                  ) : (
-                    '—'
                   )}
                 </td>
               </tr>
