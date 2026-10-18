@@ -16,6 +16,7 @@ function Contact() {
       <section className="contact-information" aria-labelledby="contact-title">
         <h1 id="contact-title">Contáctanos con:</h1>
         <p><strong>Correo:</strong> <a href="mailto:correo@muebles.com">correo@muebles.com</a></p>
+        <p><strong>Correo de pedidos:</strong> <a href="mailto:infopedidos@muebles.com">infopedidos@muebles.com</a></p>
         <p><strong>Teléfono:</strong> <a href="tel:+56912345678">+56 9 1234 5678</a></p>
         <p><strong>Dirección:</strong> Av. Principal 123, Santiago, Chile</p>
         <p><strong>Horario de atención:</strong> Lunes a Viernes, 9:00 AM - 8:00 PM</p>

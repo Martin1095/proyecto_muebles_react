@@ -69,7 +69,7 @@ function Admin() {
                   {pedido.estado === 'Cancelado' && (
                     <Alert variant="warning" className="mb-0">
                       Lamentablemente tuvimos que cancelar su pedido. Si tiene
-                      alguna duda, escríbanos.
+                      alguna duda, escríbanos a infopedidos@muebles.com.
                     </Alert>
                   )}
                 </td>
