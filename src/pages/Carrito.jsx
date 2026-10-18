@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
 
 function Carrito() {
-  const [carrito, setCarrito] = useState(() => {
-    const carritoGuardado = localStorage.getItem('carrito');
-    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
-  });
+  const [carrito, setCarrito] = useState([]);
+
+  useEffect(() => {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+    setCarrito(carritoGuardado);
+  }, []);
 
   const actualizarCarrito = (nuevoCarrito) => {
     setCarrito(nuevoCarrito);
@@ -51,7 +53,7 @@ function Carrito() {
 
     localStorage.setItem('pedidos', JSON.stringify([...pedidosGuardados, nuevoPedido]));
     vaciarCarrito();
-    alert('¡Compra realizada con éxito! El pedido ya aparece en administración.');
+    alert('¡Compra realizada con éxito!');
   };
 
 
