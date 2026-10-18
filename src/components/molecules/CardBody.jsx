@@ -1,6 +1,5 @@
 import Text from '../atoms/Text';
 
-
 function CardBody({ title, description, price }) {
   return (
     <>
@@ -12,6 +11,5 @@ function CardBody({ title, description, price }) {
     </>
   );
 }
-
 
 export default CardBody;

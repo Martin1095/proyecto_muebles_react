@@ -10,7 +10,7 @@ import Registrarse from "./pages/Registrarse";
 import Tutoriales from "./pages/Tutoriales";
 import Admin from "./pages/Admin";
 import './styles/global.css';
-
+import TutorialDetail from './pages/TutorialDetail';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tutoriales" element={<Tutoriales />} />
+        <Route path="/tutoriales/:id" element={<TutorialDetail />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
