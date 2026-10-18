@@ -2,7 +2,6 @@ import { Container, Row } from 'react-bootstrap';
 import products from '../data/Products';
 import ProductCard from '../components/organisms/ProductCard';
 
-
 function Products() {
   return (
     <Container className="my-5">
@@ -15,6 +14,5 @@ function Products() {
     </Container>
   );
 }
-
 
 export default Products;

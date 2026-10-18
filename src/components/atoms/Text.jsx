@@ -3,5 +3,4 @@ function Text({ children, variant = 'p', className }) {
     return <Tag className={className}>{children}</Tag>;
 }
 
-
 export default Text;

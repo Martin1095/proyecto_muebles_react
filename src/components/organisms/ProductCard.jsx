@@ -4,10 +4,8 @@ import Button from '../atoms/Button';
 import CardBody from '../molecules/CardBody';
 import { useNavigate } from 'react-router-dom';
 
-
 function ProductCard({ product }) {
   const navigate = useNavigate();
-
 
   return (
     <Card style={{ width: '18rem' }} className="m-2">
@@ -18,13 +16,12 @@ function ProductCard({ product }) {
           description={product.description}
           price={product.price}
         />
-        <Button variant="primary" onClick={() => navigate(`/products/${product.id}`)}>
+        <Button variant="primary" className="ms-3" onClick={() => navigate(`/products/${product.id}`)}>
           Ver detalles
         </Button>
       </Card.Body>
     </Card>
   );
 }
-
 
 export default ProductCard;
