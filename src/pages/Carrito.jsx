@@ -36,6 +36,26 @@ function Carrito() {
     actualizarCarrito([]);
   };
 
+  const realizarCompra = () => {
+    const pedidosGuardados = JSON.parse(localStorage.getItem('pedidos')) || [];
+    const nuevoPedido = {
+      id: pedidosGuardados.length > 0
+        ? pedidosGuardados[pedidosGuardados.length - 1].id + 1
+        : 1,
+      cliente: 'Cliente',
+      fecha: new Date().toLocaleDateString('es-CL'),
+      productos: carrito
+        .map((item) => `${item.name} (x${item.cantidad})`)
+        .join(', '),
+      total,
+      estado: 'Pendiente'
+    };
+
+    localStorage.setItem('pedidos', JSON.stringify([...pedidosGuardados, nuevoPedido]));
+    vaciarCarrito();
+    alert('¡Compra realizada con éxito!');
+  };
+
 
   const total = carrito.reduce((suma, item) => suma + (item.price * item.cantidad), 0);
 
