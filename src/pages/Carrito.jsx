@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
 import Text from '../components/atoms/Text';
 import Button from '../components/atoms/Button';
 
 function Carrito() {
-  const [carrito, setCarrito] = useState([]);
-
-  useEffect(() => {
-    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-    setCarrito(carritoGuardado);
-  }, []);
+  const [carrito, setCarrito] = useState(() => {
+    const carritoGuardado = localStorage.getItem('carrito');
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  });
 
   const actualizarCarrito = (nuevoCarrito) => {
     setCarrito(nuevoCarrito);
@@ -34,6 +32,26 @@ function Carrito() {
 
   const vaciarCarrito = () => {
     actualizarCarrito([]);
+  };
+
+  const realizarCompra = () => {
+    const pedidosGuardados = JSON.parse(localStorage.getItem('pedidos')) || [];
+    const nuevoPedido = {
+      id: pedidosGuardados.length > 0
+        ? pedidosGuardados[pedidosGuardados.length - 1].id + 1
+        : 1,
+      cliente: 'Cliente',
+      fecha: new Date().toLocaleDateString('es-CL'),
+      productos: carrito
+        .map((item) => `${item.name} (x${item.cantidad})`)
+        .join(', '),
+      total,
+      estado: 'Pendiente'
+    };
+
+    localStorage.setItem('pedidos', JSON.stringify([...pedidosGuardados, nuevoPedido]));
+    vaciarCarrito();
+    alert('¡Compra realizada con éxito! El pedido ya aparece en administración.');
   };
 
 
@@ -102,10 +120,7 @@ function Carrito() {
               </Button>
               <Button
                 variant="success"
-                onClick={() => {
-                  alert('¡Compra realizada con éxito!');
-                  vaciarCarrito();
-                }}
+                onClick={realizarCompra}
               >
                 Comprar
               </Button>

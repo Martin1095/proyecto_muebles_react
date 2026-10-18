@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Alert, Button, Container, Table } from 'react-bootstrap';
-import pedidosIniciales from '../data/Orders';
 
 function Admin() {
   const [pedidos, setPedidos] = useState(() => {
@@ -10,7 +9,7 @@ function Admin() {
       return JSON.parse(pedidosGuardados);
     }
 
-    return pedidosIniciales;
+    return [];
   });
 
   const cancelarPedido = (id) => {
@@ -29,7 +28,7 @@ function Admin() {
   return (
     <Container className="my-5">
       <h1>Administrar pedidos</h1>
-      <p>Pedidos de ejemplo guardados en este navegador.</p>
+      <p>Pedidos realizados desde el carrito en este navegador.</p>
 
       {pedidos.length === 0 && <Alert variant="info">No hay pedidos registrados.</Alert>}
 
