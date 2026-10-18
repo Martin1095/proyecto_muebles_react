@@ -56,7 +56,6 @@ function Carrito() {
     alert('¡Compra realizada con éxito!');
   };
 
-
   const total = carrito.reduce((suma, item) => suma + (item.price * item.cantidad), 0);
 
   return (
