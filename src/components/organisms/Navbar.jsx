@@ -1,7 +1,5 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
-
-
 function NavBar() {
   return (
     <Navbar bg="warning" variant="light" expand="lg">
@@ -28,9 +26,7 @@ function NavBar() {
   );
 }
 
-
 export default NavBar;
-
 
 /*
 

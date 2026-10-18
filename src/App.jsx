@@ -8,8 +8,8 @@ import Contact from "./pages/Contact";
 import IniciarSesion from "./pages/IniciarSesion";
 import Registrarse from "./pages/Registrarse";
 import Tutoriales from "./pages/Tutoriales";
+import TutorialDetail from './pages/TutorialDetail';
 import './styles/global.css';
-
 
 function App() {
   return (
@@ -24,11 +24,10 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tutoriales" element={<Tutoriales />} />
+        <Route path="/Tutoriales/:id" element={<TutorialDetail />}/>
       </Routes>
     </>
   );
 }
 
-
 export default App;
-
