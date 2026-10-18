@@ -1,6 +1,6 @@
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Auth.css';
+import '../styles/Auth.css';
 
 function Registrarse() {
   return (
