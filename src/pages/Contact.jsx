@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, Button, Container, Form } from 'react-bootstrap';
-import './Contact.css';
+import '../styles/Contact.css';
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);

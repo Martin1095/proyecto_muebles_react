@@ -1,6 +1,7 @@
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Auth.css';
+import Text from '../components/atoms/Text';
+import '../styles/Auth.css';
 
 function IniciarSesion() {
   function handleSubmit(event) {
