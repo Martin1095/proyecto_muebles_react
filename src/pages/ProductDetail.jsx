@@ -29,7 +29,6 @@ function ProductDetail() {
       alert("La cantidad debe ser un número entero mayor o igual a 1.");
       return;
     }
-
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
 
 
