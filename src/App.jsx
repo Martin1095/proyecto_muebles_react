@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
+import Footer from './components/organisms/Footer';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/tutoriales/:id" element={<TutorialDetail />} />
         <Route path="/Admin" element={<Admin />} />
       </Routes>
+      <Footer />
     </>
   );
 }
