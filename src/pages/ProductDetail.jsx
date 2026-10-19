@@ -29,17 +29,16 @@ function ProductDetail() {
       alert("La cantidad debe ser un número entero mayor o igual a 1.");
       return;
     }
-    // 1. Leemos el carrito actual del navegador (o creamos una lista vacía)
+
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    // 2. Buscamos si el producto ya está en el carrito
+
     const indice = carritoActual.findIndex((item) => item.id === product.id);
 
     if (indice !== -1) {
-      // Si ya está, solo le sumamos la nueva cantidad
+
       carritoActual[indice].cantidad += cantidad;
     } else {
-      // Si no está, lo agregamos a la lista con su cantidad
       carritoActual.push({
         id: product.id,
         name: product.name,
@@ -49,7 +48,6 @@ function ProductDetail() {
       });
     }
 
-    // 3. Guardamos la lista actualizada en el navegador
     localStorage.setItem('carrito', JSON.stringify(carritoActual));
     alert(`Se agregaron ${cantidad} unidad(es) de "${product.name}" al carrito.`);
   };
@@ -88,7 +86,6 @@ function ProductDetail() {
             {product.description}
           </Text>
 
-          {/* Selector de cantidad básico */}
           <Form.Group className="mb-3" style={{ width: '120px' }}>
             <Form.Label>Cantidad:</Form.Label>
             <Form.Control
