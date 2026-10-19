@@ -1,8 +1,8 @@
 const tutoriales = [
     {
-        id: 2,
+        productId: 2,
         videoId: '',
-        pasos: [],
+        pasos: ['holaaaa'],
     },
 ];
 

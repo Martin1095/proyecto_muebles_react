@@ -11,7 +11,7 @@ function ProductDetail() {
   const navigate = useNavigate();
   const [cantidad, setCantidad] = useState(1);
 
-  const product = products.find((p) => p.id === parseInt(id));
+  const product = products.find((p) => p.id === Number(id));
 
   if (!product) {
     return (
@@ -25,6 +25,10 @@ function ProductDetail() {
   }
 
   const handleAgregarCarrito = () => {
+    if (!Number.isInteger(cantidad) || cantidad < 1){
+      alert("La cantidad debe ser un número entero mayor o igual a 1.");
+      return;
+    }
     // 1. Leemos el carrito actual del navegador (o creamos una lista vacía)
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
 

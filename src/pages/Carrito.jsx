@@ -67,7 +67,7 @@ function Carrito() {
         <Text variant="p">No hay productos en el carrito.</Text>
       ) : (
         <>
-          <Table bordered hover>
+          <Table bordered hover responsive>
             <thead>
               <tr>
                 <th>Producto</th>
@@ -82,7 +82,7 @@ function Carrito() {
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>${item.price}</td>
-                  <td>
+                  <td className='text-nowrap'>
                     <Button
                       variant="secondary"
                       size="sm"
