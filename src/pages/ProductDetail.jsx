@@ -112,5 +112,4 @@ function ProductDetail() {
     </Container>
   );
 }
-
 export default ProductDetail;
