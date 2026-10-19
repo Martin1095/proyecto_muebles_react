@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
+import Footer from './components/organisms/Footer';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
@@ -8,8 +9,9 @@ import Contact from "./pages/Contact";
 import IniciarSesion from "./pages/IniciarSesion";
 import Registrarse from "./pages/Registrarse";
 import Tutoriales from "./pages/Tutoriales";
-import TutorialDetail from './pages/TutorialDetail';
+import Admin from "./pages/Admin";
 import './styles/global.css';
+import TutorialDetail from './pages/TutorialDetail';
 
 function App() {
   return (
@@ -24,10 +26,13 @@ function App() {
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tutoriales" element={<Tutoriales />} />
-        <Route path="/Tutoriales/:id" element={<TutorialDetail />}/>
+        <Route path="/tutoriales/:id" element={<TutorialDetail />} />
+        <Route path="/Admin" element={<Admin />} />
       </Routes>
+      <Footer />
     </>
   );
 }
+
 
 export default App;

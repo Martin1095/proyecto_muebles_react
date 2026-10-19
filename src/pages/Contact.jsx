@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Alert, Button, Container, Form } from 'react-bootstrap';
 import '../styles/Contact.css';
+import Text from '../components/atoms/Text';
 
 function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -14,15 +15,21 @@ function Contact() {
   return (
     <Container as="main" className="contact-page my-5">
       <section className="contact-information" aria-labelledby="contact-title">
-        <h1 id="contact-title">Contáctanos con:</h1>
-        <p><strong>Correo:</strong> <a href="mailto:correo@muebles.com">correo@muebles.com</a></p>
-        <p><strong>Teléfono:</strong> <a href="tel:+56912345678">+56 9 1234 5678</a></p>
-        <p><strong>Dirección:</strong> Av. Principal 123, Santiago, Chile</p>
-        <p><strong>Horario de atención:</strong> Lunes a Viernes, 9:00 AM - 8:00 PM</p>
+        <Text variant="h1" id="contact-title">
+          Contáctanos con:
+        </Text>
+        <Text><strong>Correo:</strong> <a href="mailto:correo@muebles.com">correo@muebles.com</a></Text>
+        <Text><strong>Correo de pedidos:</strong> <a href="mailto:infopedidos@muebles.com">infopedidos@muebles.com</a></Text>
+        <Text><strong>Teléfono:</strong> <a href="tel:+56912345678">+56 9 1234 5678</a></Text>
+        <Text><strong>Dirección:</strong> Av. Principal 123, Santiago, Chile</Text>
+        <Text><strong>Horario de atención:</strong> Lunes a Viernes, 9:00 AM - 8:00 PM</Text>
       </section>
 
       <section className="contact-message" aria-labelledby="contact-form-title">
-        <h2 id="contact-form-title">O escríbenos un mensaje</h2>
+        <Text variant="h2" id="contact-form-title">
+          O escríbenos un mensaje
+        </Text>
+
         {submitted && (
           <Alert variant="success" role="status">
             Formulario completado. Este sitio todavía no envía mensajes.

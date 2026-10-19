@@ -1,6 +1,9 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useAuth } from '../../context/auth';
 
 function NavBar() {
+  const { usuario, cerrarSesion } = useAuth();
+
   return (
     <Navbar bg="warning" variant="light" expand="lg">
       <Container className="barra">
@@ -11,13 +14,28 @@ function NavBar() {
             <Nav.Link href="/">Inicio</Nav.Link>
             <Nav.Link href="/products">Productos</Nav.Link>
             <Nav.Link href="/contact">Contacto</Nav.Link>
-            <Nav.Link href="/carrito">Carrito</Nav.Link>
             <Nav.Link href="/tutoriales">Tutoriales</Nav.Link>
+            <Nav.Link href="/carrito">Carrito</Nav.Link>
           </Nav>
 
           <Nav className="ms-auto">
-            <Nav.Link href="/iniciarSesion">Iniciar Sesión</Nav.Link>
-            <Nav.Link href="/registrarse">Registrarse</Nav.Link>
+            {usuario ? (
+              <>
+                <Navbar.Text>Hola, {usuario}</Navbar.Text>
+                <Nav.Link
+                  as="button"
+                  className="border-0 bg-transparent"
+                  onClick={cerrarSesion}
+                >
+                  Cerrar sesión
+                </Nav.Link>
+              </>
+            ) : (
+              <>
+                <Nav.Link href="/iniciarSesion">Iniciar Sesión</Nav.Link>
+                <Nav.Link href="/registrarse">Registrarse</Nav.Link>
+              </>
+            )}
           </Nav>
 
         </Navbar.Collapse>
@@ -27,7 +45,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
-/*
-
-*/
