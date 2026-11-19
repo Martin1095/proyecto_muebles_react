@@ -10,9 +10,9 @@ function TutorialCard({ product }){
     return(
         <Card className="h-100">
             <Image
-              src={product.image}
-              alt={product.name}
-              className={"card-img-top"}          
+                src={product.image}
+                alt={product.name}
+                className={"card-img-top"}
             />
             <Card.Body className="d-flex flex-column">
                 <TutorialBody
