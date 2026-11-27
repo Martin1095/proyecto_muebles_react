@@ -2,7 +2,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useAuth } from '../../context/auth';
 
 function NavBar() {
-  const { usuario, cerrarSesion } = useAuth();
+  const { usuario, rol, cerrarSesion } = useAuth();
 
   return (
     <Navbar bg="warning" variant="light" expand="lg">
@@ -16,6 +16,9 @@ function NavBar() {
             <Nav.Link href="/contact">Contacto</Nav.Link>
             <Nav.Link href="/tutoriales">Tutoriales</Nav.Link>
             <Nav.Link href="/carrito">Carrito</Nav.Link>
+            {rol === 'ADMIN' && (
+              <Nav.Link href="/Admin">Panel</Nav.Link>
+            )}
           </Nav>
 
           <Nav className="ms-auto">
@@ -37,7 +40,6 @@ function NavBar() {
               </>
             )}
           </Nav>
-
         </Navbar.Collapse>
       </Container>
     </Navbar>
