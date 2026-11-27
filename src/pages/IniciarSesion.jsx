@@ -12,26 +12,43 @@ function IniciarSesion() {
   const [error, setError] = useState('');
   const [mensaje] = useState(location.state?.mensaje || '');
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const nombreUsuario = formData.get('usuario').trim();
     const contrasena = formData.get('contrasena');
-    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    const encontrado = usuarios.find(
-      (cuenta) => cuenta.usuario === nombreUsuario && cuenta.contrasena === contrasena,
-    );
 
-    if (!encontrado) {
-      setError('Usuario o contraseña incorrectos. Si no tienes cuenta, regístrate.');
-      return;
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          usuario: nombreUsuario,
+          contrasena: contrasena,
+        }),
+      });
+
+      if (!response.ok) {
+        setError('Usuario o contraseña incorrectos.');
+        return;
+      }
+
+      const data = await response.json();
+      setError('');
+      form.reset();
+
+      iniciarSesion(
+        data.usuario || data.nombre || nombreUsuario,
+        data.rol || 'CLIENTE',
+        data.token || data.jwt || ''
+      );
+      navigate('/');
+    } catch (err) {
+      setError('No se pudo conectar con el servidor. Verifica que el backend esté activo.');
     }
-
-    setError('');
-    form.reset();
-    iniciarSesion(encontrado.nombre);
-    navigate('/');
   }
 
   return (
@@ -71,10 +88,8 @@ function IniciarSesion() {
             required
           />
         </Form.Group>
-
         <Button type="submit" className="auth-submit">Iniciar sesión</Button>
       </Form>
-
       <Text className="auth-switch">
         ¿No tienes cuenta? <Link to="/registrarse">Regístrate</Link>
       </Text>
