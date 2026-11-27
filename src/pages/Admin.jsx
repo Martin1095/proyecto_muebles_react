@@ -1,36 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, Button, Container, Table } from 'react-bootstrap';
+import { useAuth } from '../context/auth';
 
 function Admin() {
-  const [pedidos, setPedidos] = useState(() => {
-    const pedidosGuardados = localStorage.getItem('pedidos');
+  const { rol, token } = useAuth();
+  const [pedidos, setPedidos] = useState([]);
+  const [error, setError] = useState('');
 
-    if (pedidosGuardados) {
-      return JSON.parse(pedidosGuardados);
+  useEffect(() => {
+    async function cargarPedidos() {
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/pedidos', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setPedidos(data);
+        } else {
+          setError('No se pudieron cargar los pedidos.');
+        }
+      } catch {
+        setError('Error al conectar con el servidor.');
+      }
     }
 
-    return [];
-  });
+    cargarPedidos();
+  }, [token]);
 
-  const cancelarPedido = (id) => {
-    const pedidosActualizados = pedidos.map((pedido) => {
-      if (pedido.id === id) {
-        return { ...pedido, estado: 'Cancelado' };
+  const cancelarPedido = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/pedidos/${id}/cancelar`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const pedidosActualizados = pedidos.map((pedido) => {
+          if (pedido.id === id) {
+            return { ...pedido, estado: 'Cancelado' };
+          }
+          return pedido;
+        });
+
+        setPedidos(pedidosActualizados);
+      } else {
+        setError('No se pudo cancelar el pedido.');
       }
-
-      return pedido;
-    });
-
-    setPedidos(pedidosActualizados);
-    localStorage.setItem('pedidos', JSON.stringify(pedidosActualizados));
+    } catch {
+      setError('Error al conectar con el servidor.');
+    }
   };
 
   return (
     <Container className="my-5">
       <h1>Administrar pedidos</h1>
-      <p>Pedidos realizados desde el carrito en este navegador.</p>
+      <p>Pedidos realizados por los clientes.</p>
 
-      {pedidos.length === 0 && <Alert variant="info">No hay pedidos registrados.</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
+      {pedidos.length === 0 && !error && <Alert variant="info">No hay pedidos registrados.</Alert>}
 
       {pedidos.length > 0 && (
         <Table bordered hover>
@@ -42,7 +74,7 @@ function Admin() {
               <th>Productos</th>
               <th>Total</th>
               <th>Estado</th>
-              <th>Acción</th>
+              {rol === 'ADMIN' && <th>Acción</th>}
               <th>Aviso al cliente</th>
             </tr>
           </thead>
@@ -55,16 +87,18 @@ function Admin() {
                 <td>{pedido.productos}</td>
                 <td>${pedido.total}</td>
                 <td>{pedido.estado}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    disabled={pedido.estado === 'Cancelado'}
-                    onClick={() => cancelarPedido(pedido.id)}
-                  >
-                    Cancelar
-                  </Button>
-                </td>
+                {rol === 'ADMIN' && (
+                  <td>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      disabled={pedido.estado === 'Cancelado'}
+                      onClick={() => cancelarPedido(pedido.id)}
+                    >
+                      Cancelar
+                    </Button>
+                  </td>
+                )}
                 <td>
                   {pedido.estado === 'Cancelado' && (
                     <Alert variant="warning" className="mb-0">
