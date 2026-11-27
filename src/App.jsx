@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './context/auth';
 import NavBar from './components/organisms/Navbar';
 import Footer from './components/organisms/Footer';
 import Home from './pages/Home';
@@ -13,6 +14,8 @@ import TutorialDetail from './pages/TutorialDetail';
 import Admin from './pages/Admin';
 
 function App() {
+  const { rol } = useAuth();
+
   return (
     <div className="app-container">
       <NavBar />
@@ -28,7 +31,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/tutoriales" element={<Tutoriales />} />
           <Route path="/tutoriales/:id" element={<TutorialDetail />} />
-          <Route path="/Admin" element={<Admin />} />
+          <Route
+            path="/Admin"
+            element={
+              rol === 'ADMIN'
+                ? <Admin />
+                : <Navigate to="/" />
+            }
+          />
         </Routes>
       </div>
 
