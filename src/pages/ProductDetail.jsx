@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Badge, Form } from 'react-bootstrap';
+import { useAuth } from '../context/auth';
 import products from '../data/Products';
 import Image from '../components/atoms/Image';
 import Text from '../components/atoms/Text';
@@ -9,6 +10,7 @@ import Button from '../components/atoms/Button';
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { usuario } = useAuth();
   const [cantidad, setCantidad] = useState(1);
 
   const product = products.find((p) => p.id === Number(id));
@@ -25,30 +27,25 @@ function ProductDetail() {
   }
 
   const handleAgregarCarrito = () => {
-    if (!Number.isInteger(cantidad) || cantidad < 1){
-      alert("La cantidad debe ser un número entero mayor o igual a 1.");
-      return;
-    }
-    const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+    const cant = cantidad < 1 ? 1 : cantidad;
+    const key = usuario ? `carrito_${usuario}` : 'carrito';
+    const carrito = JSON.parse(localStorage.getItem(key)) || [];
+    const existe = carrito.find((item) => item.id === product.id);
 
-
-    const indice = carritoActual.findIndex((item) => item.id === product.id);
-
-    if (indice !== -1) {
-
-      carritoActual[indice].cantidad += cantidad;
+    if (existe) {
+      existe.cantidad += cant;
     } else {
-      carritoActual.push({
+      carrito.push({
         id: product.id,
         name: product.name,
         price: product.price,
         image: product.image,
-        cantidad: cantidad
+        cantidad: cant,
       });
     }
 
-    localStorage.setItem('carrito', JSON.stringify(carritoActual));
-    alert(`Se agregaron ${cantidad} unidad(es) de "${product.name}" al carrito.`);
+    localStorage.setItem(key, JSON.stringify(carrito));
+    alert('Producto agregado al carrito');
   };
 
   return (
@@ -72,7 +69,7 @@ function ProductDetail() {
 
         <Col md={6}>
           <Badge bg="success" className="mb-2">Disponible en stock</Badge>
-          
+
           <Text variant="h2" className="fw-bold mb-2">
             {product.name}
           </Text>
@@ -91,7 +88,7 @@ function ProductDetail() {
               type="number"
               min="1"
               value={cantidad}
-              onChange={(e) => setCantidad(parseInt(e.target.value) || 1)}
+              onChange={(e) => setCantidad(Number(e.target.value) || 1)}
             />
           </Form.Group>
 
@@ -112,4 +109,5 @@ function ProductDetail() {
     </Container>
   );
 }
+
 export default ProductDetail;
